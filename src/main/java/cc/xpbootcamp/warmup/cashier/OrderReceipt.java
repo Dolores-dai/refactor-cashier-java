@@ -33,11 +33,10 @@ public class OrderReceipt {
         for (Goods goods : order.getGoodsList()) {
 
             // calculate sales tax @ rate of 10%
-            double salesTax = goods.getTotalAmount() * .10;
-            totalSalesTax += salesTax;
+            totalSalesTax += goods.getTotalAmount() * .10;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            totalAmount += goods.getTotalAmount() + salesTax;
+            totalAmount += goods.getTotalAmount() + goods.getTotalAmount() * .10;
         }
 
         // prints the state tax
