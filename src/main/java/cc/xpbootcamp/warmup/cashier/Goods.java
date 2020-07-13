@@ -1,30 +1,28 @@
 package cc.xpbootcamp.warmup.cashier;
 
 public class Goods {
-	private String name;
-	private double price;
-	private int number;
+    private String name;
+    private double price;
+    private int number;
+    private double totalAmount;
 
-	public Goods(String name, double price, int number) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.number = number;
-	}
+    public Goods(String name, Double price, Integer number) {
+        super();
+        this.name = name;
+        this.price = price;
+        this.number = number;
+        this.totalAmount = price * number;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
 
-	public double getPrice() {
-		return price;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-    double totalAmount() {
-        return price * number;
+    @Override
+    public String toString() {
+        return name + '\t' +
+                price + '\t' +
+                number + '\t' +
+                totalAmount + '\n';
     }
 }

@@ -26,24 +26,18 @@ public class OrderReceipt {
 //        receipt.append(order.getCustomerLoyaltyNumber());
 
         // prints lineItems
+        receipt.append(order.getGoodsList().toString());
+
         double totalSalesTax = 0d;
         double totalAmount = 0d;
         for (Goods goods : order.getGoodsList()) {
-            receipt.append(goods.getName());
-            receipt.append('\t');
-            receipt.append(goods.getPrice());
-            receipt.append('\t');
-            receipt.append(goods.getNumber());
-            receipt.append('\t');
-            receipt.append(goods.totalAmount());
-            receipt.append('\n');
 
             // calculate sales tax @ rate of 10%
-            double salesTax = goods.totalAmount() * .10;
+            double salesTax = goods.getTotalAmount() * .10;
             totalSalesTax += salesTax;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            totalAmount += goods.totalAmount() + salesTax;
+            totalAmount += goods.getTotalAmount() + salesTax;
         }
 
         // prints the state tax
