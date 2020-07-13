@@ -15,43 +15,43 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
+        StringBuilder receipt = new StringBuilder();
 
         // print headers
-        output.append("======Printing Orders======\n");
+        receipt.append("======Printing Orders======\n");
 
         // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
+//        receipt.append("Date - " + order.getDate();
+        receipt.append(order.getCustomerName());
+        receipt.append(order.getCustomerAddress());
+//        receipt.append(order.getCustomerLoyaltyNumber());
 
         // prints lineItems
-        double totSalesTx = 0d;
-        double tot = 0d;
+        double totalSalesTax = 0d;
+        double totalAmount = 0d;
         for (Goods goods : order.getGoodsList()) {
-            output.append(goods.getName());
-            output.append('\t');
-            output.append(goods.getPrice());
-            output.append('\t');
-            output.append(goods.getNumber());
-            output.append('\t');
-            output.append(goods.totalAmount());
-            output.append('\n');
+            receipt.append(goods.getName());
+            receipt.append('\t');
+            receipt.append(goods.getPrice());
+            receipt.append('\t');
+            receipt.append(goods.getNumber());
+            receipt.append('\t');
+            receipt.append(goods.totalAmount());
+            receipt.append('\n');
 
             // calculate sales tax @ rate of 10%
             double salesTax = goods.totalAmount() * .10;
-            totSalesTx += salesTax;
+            totalSalesTax += salesTax;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += goods.totalAmount() + salesTax;
+            totalAmount += goods.totalAmount() + salesTax;
         }
 
         // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
+        receipt.append("Sales Tax").append('\t').append(totalSalesTax);
 
         // print total amount
-        output.append("Total Amount").append('\t').append(tot);
-        return output.toString();
+        receipt.append("Total Amount").append('\t').append(totalAmount);
+        return receipt.toString();
     }
 }
