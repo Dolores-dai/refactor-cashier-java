@@ -3,22 +3,16 @@ package cc.xpbootcamp.warmup.cashier;
 import java.util.List;
 
 public class Order {
-    private String customerName;
-    private String customerAddress;
+    private Customer customer;
     private List<Goods> goodsList;
 
     public Order(String customerName, String customerAddress, List<Goods> goodsList) {
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
+        this.customer = new Customer(customerName, customerAddress);
         this.goodsList = goodsList;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public List<Goods> getGoodsList() {
