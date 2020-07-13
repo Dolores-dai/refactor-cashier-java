@@ -29,7 +29,7 @@ public class OrderReceipt {
         // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
-        for (Goods goods : order.getLineItems()) {
+        for (Goods goods : order.getGoodsList()) {
             output.append(goods.getName());
             output.append('\t');
             output.append(goods.getPrice());
