@@ -9,11 +9,7 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
+    public String getIntroduce() {
+        return customerName + customerAddress;
     }
 }
