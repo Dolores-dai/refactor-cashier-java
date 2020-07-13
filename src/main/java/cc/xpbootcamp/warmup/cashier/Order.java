@@ -7,6 +7,7 @@ public class Order {
     private List<Goods> goodsList;
     private double totalSalesTax;
     private double totalAmount;
+    private final static double TAX = 0.10;
 
     public Order(String customerName, String customerAddress, List<Goods> goodsList) {
         this.customer = new Customer(customerName, customerAddress);
@@ -31,8 +32,8 @@ public class Order {
 
     public void calculateTotalTaxAndAmount() {
         for (Goods goods : goodsList) {
-            this.totalSalesTax += goods.getTotalAmount() * .10;
-            this.totalAmount += goods.getTotalAmount() + goods.getTotalAmount() * .10;
+            this.totalSalesTax += goods.getTotalAmount() * TAX;
+            this.totalAmount += goods.getTotalAmount() * (1 + TAX);
         }
     }
 }
