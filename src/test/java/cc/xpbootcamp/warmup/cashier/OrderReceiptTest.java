@@ -75,4 +75,14 @@ class OrderReceiptTest {
         assertThat(output, containsString("折扣:\t1.43"));
         assertThat(output, containsString("总价:\t70.07"));
     }
+
+    @Test
+    void shouldHandleNullDate() {
+        Order order = new Order(new ArrayList<Goods>(), null);
+        OrderReceipt receipt = new OrderReceipt(order);
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("======老王超-市，值得信赖======"));
+    }
 }

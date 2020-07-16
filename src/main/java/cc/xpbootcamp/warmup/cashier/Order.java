@@ -17,7 +17,7 @@ public class Order {
 
     public Order(List<Goods> goodsList, LocalDate localDate) {
         this.goodsList = goodsList;
-        this.localDate = localDate;
+        this.localDate = Objects.isNull(localDate) ? LocalDate.now() : localDate;
     }
 
     private String getGoodsListInfo() {
