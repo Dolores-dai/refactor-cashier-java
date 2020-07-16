@@ -1,28 +1,20 @@
 package cc.xpbootcamp.warmup.cashier;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class Order {
-    private Customer customer;
     private List<Goods> goodsList;
     private double totalSalesTax;
     private double totalAmount;
     private LocalDate localDate;
     private final static double TAX = 0.10;
 
-    public Order(String customerName, String customerAddress, List<Goods> goodsList, LocalDate localDate) {
-        this.customer = new Customer(customerName, customerAddress);
+    public Order(List<Goods> goodsList, LocalDate localDate) {
         this.goodsList = goodsList;
         this.localDate = localDate;
-    }
-
-    public String getCustomerInfo() {
-        return customer.getIntroduce();
     }
 
     public String getGoodsListInfo() {
@@ -60,8 +52,6 @@ public class Order {
         getReceiptHeader(receipt);
 
         getDate(receipt);
-
-        receipt.append(getCustomerInfo());
 
         receipt.append(getGoodsListInfo());
 
