@@ -20,9 +20,9 @@ public class Goods {
 
     @Override
     public String toString() {
-        return name + '\t' +
-                price + '\t' +
-                number + '\t' +
+        return name + ',' +
+                price + " * " +
+                number + ',' +
                 totalAmount + '\n';
     }
 }
