@@ -1,17 +1,24 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Order {
     private Customer customer;
     private List<Goods> goodsList;
     private double totalSalesTax;
     private double totalAmount;
+    private LocalDate localDate;
     private final static double TAX = 0.10;
 
-    public Order(String customerName, String customerAddress, List<Goods> goodsList) {
+    public Order(String customerName, String customerAddress, List<Goods> goodsList, LocalDate localDate) {
         this.customer = new Customer(customerName, customerAddress);
         this.goodsList = goodsList;
+        this.localDate = localDate;
     }
 
     public String getCustomerInfo() {
@@ -41,16 +48,18 @@ public class Order {
         receipt.append("======老王超市，值得信赖======\n");
     }
 
-    public void getReceiptFooter(StringBuilder receipt) {
+    private void getReceiptFooter(StringBuilder receipt) {
         receipt.append("Sales Tax").append('\t').append(getTotalSalesTax());
 
         receipt.append("Total Amount").append('\t').append(getTotalAmount());
     }
 
-    public String printReceipt() {
+    String printReceipt() {
         StringBuilder receipt = new StringBuilder();
 
         getReceiptHeader(receipt);
+
+        getDate(receipt);
 
         receipt.append(getCustomerInfo());
 
@@ -60,5 +69,9 @@ public class Order {
 
         getReceiptFooter(receipt);
         return receipt.toString();
+    }
+
+    private void getDate(StringBuilder receipt) {
+        receipt.append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE").withLocale(Locale.CHINA)));
     }
 }
