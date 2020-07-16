@@ -8,16 +8,6 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder receipt = new StringBuilder();
-
-        getReceiptHeader(receipt);
-
-        order.printReceipt(receipt);
-
-        return receipt.toString();
-    }
-
-    private void getReceiptHeader(StringBuilder receipt) {
-        receipt.append("======Printing Orders======\n");
+        return order.printReceipt();
     }
 }

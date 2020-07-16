@@ -37,7 +37,21 @@ public class Order {
         }
     }
 
-    public void printReceipt(StringBuilder receipt) {
+    private void getReceiptHeader(StringBuilder receipt) {
+        receipt.append("======Printing Orders======\n");
+    }
+
+    public void getReceiptFooter(StringBuilder receipt) {
+        receipt.append("Sales Tax").append('\t').append(getTotalSalesTax());
+
+        receipt.append("Total Amount").append('\t').append(getTotalAmount());
+    }
+
+    public String printReceipt() {
+        StringBuilder receipt = new StringBuilder();
+
+        getReceiptHeader(receipt);
+
         receipt.append(getCustomer().getIntroduce());
 
         receipt.append(getGoodsList().toString());
@@ -45,11 +59,6 @@ public class Order {
         calculateTotalTaxAndAmount();
 
         getReceiptFooter(receipt);
-    }
-
-    public void getReceiptFooter(StringBuilder receipt) {
-        receipt.append("Sales Tax").append('\t').append(getTotalSalesTax());
-
-        receipt.append("Total Amount").append('\t').append(getTotalAmount());
+        return receipt.toString();
     }
 }
