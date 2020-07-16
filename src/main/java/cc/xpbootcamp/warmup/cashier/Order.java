@@ -14,12 +14,12 @@ public class Order {
         this.goodsList = goodsList;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerInfo() {
+        return customer.getIntroduce();
     }
 
-    public List<Goods> getGoodsList() {
-        return goodsList;
+    public String getGoodsListInfo() {
+        return goodsList.toString();
     }
 
     public Double getTotalSalesTax() {
@@ -52,9 +52,9 @@ public class Order {
 
         getReceiptHeader(receipt);
 
-        receipt.append(getCustomer().getIntroduce());
+        receipt.append(getCustomerInfo());
 
-        receipt.append(getGoodsList().toString());
+        receipt.append(getGoodsListInfo());
 
         calculateTotalTaxAndAmount();
 
