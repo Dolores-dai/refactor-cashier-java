@@ -1,9 +1,11 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Order {
     private List<Goods> goodsList;
@@ -11,25 +13,29 @@ public class Order {
     private double totalAmount;
     private LocalDate localDate;
     private final static double TAX = 0.10;
+    private final static double DISCOUNT = 0.02;
 
     public Order(List<Goods> goodsList, LocalDate localDate) {
         this.goodsList = goodsList;
         this.localDate = localDate;
     }
 
-    public String getGoodsListInfo() {
-        return goodsList.toString();
+    private String getGoodsListInfo() {
+        return goodsList.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(", ", "");
     }
 
-    public Double getTotalSalesTax() {
+    private Double getTotalSalesTax() {
         return totalSalesTax;
     }
 
-    public Double getTotalAmount() {
+    private Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void calculateTotalTaxAndAmount() {
+    private void calculateTotalTaxAndAmount() {
         for (Goods goods : goodsList) {
             this.totalSalesTax += goods.getTotalAmount() * TAX;
             this.totalAmount += goods.getTotalAmount() * (1 + TAX);
@@ -37,13 +43,24 @@ public class Order {
     }
 
     private void getReceiptHeader(StringBuilder receipt) {
-        receipt.append("======老王超市，值得信赖======\n");
+        receipt.append("\n======老王超市，值得信赖======\n");
     }
 
     private void getReceiptFooter(StringBuilder receipt) {
-        receipt.append("Sales Tax").append('\t').append(getTotalSalesTax());
+        receipt.append("\n----------------------\n");
 
-        receipt.append("Total Amount").append('\t').append(getTotalAmount());
+        receipt.append("税额:").append('\t').append(getTotalSalesTax()).append('\n');
+
+        ifDiscountAmount(receipt);
+    }
+
+    private void ifDiscountAmount(StringBuilder receipt) {
+        if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
+            receipt.append("折扣:").append('\t').append(getTotalAmount() * DISCOUNT).append('\n');
+            receipt.append("总价:").append('\t').append(getTotalAmount() * (1 - DISCOUNT)).append('\n');
+        } else {
+            receipt.append("总价:").append('\t').append(getTotalAmount()).append('\n');
+        }
     }
 
     String printReceipt() {
@@ -62,6 +79,8 @@ public class Order {
     }
 
     private void getDate(StringBuilder receipt) {
-        receipt.append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE").withLocale(Locale.CHINA)));
+        receipt.append('\n')
+                .append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE\n").withLocale(Locale.CHINA)))
+                .append('\n');
     }
 }
