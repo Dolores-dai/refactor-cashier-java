@@ -39,4 +39,13 @@ class OrderReceiptTest {
         assertThat(output, containsString("Total Amount\t71.5"));
     }
 
+    @Test
+    void shouldPrintSupermarketTitle() {
+        Order order = new Order(null, null, new ArrayList<Goods>());
+        OrderReceipt receipt = new OrderReceipt(order);
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("======老王超市，值得信赖======"));
+    }
 }

@@ -38,7 +38,7 @@ public class Order {
     }
 
     private void getReceiptHeader(StringBuilder receipt) {
-        receipt.append("======Printing Orders======\n");
+        receipt.append("======老王超市，值得信赖======\n");
     }
 
     public void getReceiptFooter(StringBuilder receipt) {
