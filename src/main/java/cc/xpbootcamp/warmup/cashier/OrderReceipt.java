@@ -10,7 +10,7 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder receipt = new StringBuilder();
 
-        receipt.append("======Printing Orders======\n");
+        getReceiptHeader(receipt);
 
         receipt.append(order.getCustomer().getIntroduce());
 
@@ -22,5 +22,9 @@ public class OrderReceipt {
 
         receipt.append("Total Amount").append('\t').append(order.getTotalAmount());
         return receipt.toString();
+    }
+
+    private void getReceiptHeader(StringBuilder receipt) {
+        receipt.append("======Printing Orders======\n");
     }
 }
