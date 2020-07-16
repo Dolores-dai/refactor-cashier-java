@@ -12,20 +12,9 @@ public class OrderReceipt {
 
         getReceiptHeader(receipt);
 
-        receipt.append(order.getCustomer().getIntroduce());
+        order.printReceipt(receipt);
 
-        receipt.append(order.getGoodsList().toString());
-
-        order.calculateTotalTaxAndAmount();
-
-        getReceiptFooter(receipt);
         return receipt.toString();
-    }
-
-    private void getReceiptFooter(StringBuilder receipt) {
-        receipt.append("Sales Tax").append('\t').append(order.getTotalSalesTax());
-
-        receipt.append("Total Amount").append('\t').append(order.getTotalAmount());
     }
 
     private void getReceiptHeader(StringBuilder receipt) {

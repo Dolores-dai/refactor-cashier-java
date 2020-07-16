@@ -36,4 +36,20 @@ public class Order {
             this.totalAmount += goods.getTotalAmount() * (1 + TAX);
         }
     }
+
+    public void printReceipt(StringBuilder receipt) {
+        receipt.append(getCustomer().getIntroduce());
+
+        receipt.append(getGoodsList().toString());
+
+        calculateTotalTaxAndAmount();
+
+        getReceiptFooter(receipt);
+    }
+
+    public void getReceiptFooter(StringBuilder receipt) {
+        receipt.append("Sales Tax").append('\t').append(getTotalSalesTax());
+
+        receipt.append("Total Amount").append('\t').append(getTotalAmount());
+    }
 }
