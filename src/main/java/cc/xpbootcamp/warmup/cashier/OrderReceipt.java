@@ -18,10 +18,14 @@ public class OrderReceipt {
 
         order.calculateTotalTaxAndAmount();
 
+        getReceiptFooter(receipt);
+        return receipt.toString();
+    }
+
+    private void getReceiptFooter(StringBuilder receipt) {
         receipt.append("Sales Tax").append('\t').append(order.getTotalSalesTax());
 
         receipt.append("Total Amount").append('\t').append(order.getTotalAmount());
-        return receipt.toString();
     }
 
     private void getReceiptHeader(StringBuilder receipt) {
