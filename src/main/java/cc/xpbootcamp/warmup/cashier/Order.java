@@ -69,9 +69,8 @@ public class Order {
     private void ifDiscountAmount(StringBuilder receipt) {
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
             receipt.append("折扣:").append('\t').append(totalAmount * DISCOUNT).append('\n');
-            receipt.append("总价:").append('\t').append(totalAmount * (1 - DISCOUNT)).append('\n');
-        } else {
-            receipt.append("总价:").append('\t').append(totalAmount).append('\n');
+            totalAmount *= 1 - DISCOUNT;
         }
+        receipt.append("总价:").append('\t').append(totalAmount).append('\n');
     }
 }

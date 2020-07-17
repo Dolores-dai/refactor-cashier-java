@@ -83,6 +83,6 @@ class OrderReceiptTest {
 
         String output = receipt.printReceipt();
 
-        assertThat(output, containsString("======老王超-市，值得信赖======"));
+        assertThat(output, containsString("======老王超市，值得信赖======"));
     }
 }
