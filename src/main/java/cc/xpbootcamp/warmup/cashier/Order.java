@@ -14,6 +14,7 @@ public class Order {
     private LocalDate localDate;
     private final static double TAX = 0.10;
     private final static double DISCOUNT = 0.02;
+    private StringBuilder receipt = new StringBuilder();
 
     public Order(List<Goods> goodsList, LocalDate localDate) {
         this.goodsList = goodsList;
@@ -21,42 +22,41 @@ public class Order {
     }
 
     String printReceipt() {
-        StringBuilder receipt = new StringBuilder();
 
-        getReceiptHeader(receipt);
+        getReceiptHeader();
 
-        getReceiptContent(receipt);
+        getReceiptContent();
 
-        getReceiptFooter(receipt);
+        getReceiptFooter();
         return receipt.toString();
     }
 
-    private void getReceiptHeader(StringBuilder receipt) {
+    private void getReceiptHeader() {
         receipt.append("\n======老王超市，值得信赖======\n");
-        getDate(receipt);
+        getDate();
     }
 
-    private void getDate(StringBuilder receipt) {
+    private void getDate() {
         receipt.append('\n')
                 .append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE\n").withLocale(Locale.CHINA)))
                 .append('\n');
     }
 
-    private void getReceiptContent(StringBuilder receipt) {
+    private void getReceiptContent() {
         receipt.append(goodsList.toString()
                 .replace("[", "")
                 .replace("]", "")
                 .replace(", ", ""));
     }
 
-    private void getReceiptFooter(StringBuilder receipt) {
+    private void getReceiptFooter() {
         receipt.append("\n----------------------\n");
 
         calculateTotalTaxAndAmount();
 
         receipt.append("税额:").append('\t').append(totalSalesTax).append('\n');
 
-        ifDiscountAmount(receipt);
+        ifDiscountAmount();
     }
 
     private void calculateTotalTaxAndAmount() {
@@ -66,7 +66,7 @@ public class Order {
         }
     }
 
-    private void ifDiscountAmount(StringBuilder receipt) {
+    private void ifDiscountAmount() {
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
             receipt.append("折扣:").append('\t').append(totalAmount * DISCOUNT).append('\n');
             totalAmount *= 1 - DISCOUNT;
