@@ -14,7 +14,7 @@ public class Order {
     private LocalDate localDate;
     private final static double TAX = 0.10;
     private final static double DISCOUNT = 0.02;
-    private StringBuilder receipt = new StringBuilder();
+    private StringBuilder receipt;
 
     public Order(List<Goods> goodsList, LocalDate localDate) {
         this.goodsList = goodsList;
@@ -22,12 +22,12 @@ public class Order {
     }
 
     String printReceipt() {
+        receipt = new StringBuilder();
 
         getReceiptHeader();
-
         getReceiptContent();
-
         getReceiptFooter();
+
         return receipt.toString();
     }
 
