@@ -27,14 +27,6 @@ public class Order {
                 .replace(", ", "");
     }
 
-    private Double getTotalSalesTax() {
-        return totalSalesTax;
-    }
-
-    private Double getTotalAmount() {
-        return totalAmount;
-    }
-
     private void calculateTotalTaxAndAmount() {
         for (Goods goods : goodsList) {
             this.totalSalesTax += goods.getTotalAmount() * TAX;
@@ -49,17 +41,17 @@ public class Order {
     private void getReceiptFooter(StringBuilder receipt) {
         receipt.append("\n----------------------\n");
 
-        receipt.append("税额:").append('\t').append(getTotalSalesTax()).append('\n');
+        receipt.append("税额:").append('\t').append(totalSalesTax).append('\n');
 
         ifDiscountAmount(receipt);
     }
 
     private void ifDiscountAmount(StringBuilder receipt) {
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
-            receipt.append("折扣:").append('\t').append(getTotalAmount() * DISCOUNT).append('\n');
-            receipt.append("总价:").append('\t').append(getTotalAmount() * (1 - DISCOUNT)).append('\n');
+            receipt.append("折扣:").append('\t').append(totalAmount * DISCOUNT).append('\n');
+            receipt.append("总价:").append('\t').append(totalAmount * (1 - DISCOUNT)).append('\n');
         } else {
-            receipt.append("总价:").append('\t').append(getTotalAmount()).append('\n');
+            receipt.append("总价:").append('\t').append(totalAmount).append('\n');
         }
     }
 
