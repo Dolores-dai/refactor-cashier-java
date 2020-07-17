@@ -20,13 +20,6 @@ public class Order {
         this.localDate = Objects.isNull(localDate) ? LocalDate.now() : localDate;
     }
 
-    private String getGoodsListInfo() {
-        return goodsList.toString()
-                .replace("[", "")
-                .replace("]", "")
-                .replace(", ", "");
-    }
-
     private void calculateTotalTaxAndAmount() {
         for (Goods goods : goodsList) {
             this.totalSalesTax += goods.getTotalAmount() * TAX;
@@ -34,12 +27,21 @@ public class Order {
         }
     }
 
+    private void getDate(StringBuilder receipt) {
+        receipt.append('\n')
+                .append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE\n").withLocale(Locale.CHINA)))
+                .append('\n');
+    }
+
     private void getReceiptHeader(StringBuilder receipt) {
         receipt.append("\n======老王超市，值得信赖======\n");
+        getDate(receipt);
     }
 
     private void getReceiptFooter(StringBuilder receipt) {
         receipt.append("\n----------------------\n");
+
+        calculateTotalTaxAndAmount();
 
         receipt.append("税额:").append('\t').append(totalSalesTax).append('\n');
 
@@ -60,19 +62,16 @@ public class Order {
 
         getReceiptHeader(receipt);
 
-        getDate(receipt);
-
-        receipt.append(getGoodsListInfo());
-
-        calculateTotalTaxAndAmount();
+        getReceiptContent(receipt);
 
         getReceiptFooter(receipt);
         return receipt.toString();
     }
 
-    private void getDate(StringBuilder receipt) {
-        receipt.append('\n')
-                .append(localDate.format(DateTimeFormatter.ofPattern("yyyy年M月dd日，EEE\n").withLocale(Locale.CHINA)))
-                .append('\n');
+    private void getReceiptContent(StringBuilder receipt) {
+        receipt.append(goodsList.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(", ", ""));
     }
 }
