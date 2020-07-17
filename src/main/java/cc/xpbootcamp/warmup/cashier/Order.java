@@ -20,11 +20,20 @@ public class Order {
         this.localDate = Objects.isNull(localDate) ? LocalDate.now() : localDate;
     }
 
-    private void calculateTotalTaxAndAmount() {
-        for (Goods goods : goodsList) {
-            this.totalSalesTax += goods.getTotalAmount() * TAX;
-            this.totalAmount += goods.getTotalAmount() * (1 + TAX);
-        }
+    String printReceipt() {
+        StringBuilder receipt = new StringBuilder();
+
+        getReceiptHeader(receipt);
+
+        getReceiptContent(receipt);
+
+        getReceiptFooter(receipt);
+        return receipt.toString();
+    }
+
+    private void getReceiptHeader(StringBuilder receipt) {
+        receipt.append("\n======老王超市，值得信赖======\n");
+        getDate(receipt);
     }
 
     private void getDate(StringBuilder receipt) {
@@ -33,9 +42,11 @@ public class Order {
                 .append('\n');
     }
 
-    private void getReceiptHeader(StringBuilder receipt) {
-        receipt.append("\n======老王超市，值得信赖======\n");
-        getDate(receipt);
+    private void getReceiptContent(StringBuilder receipt) {
+        receipt.append(goodsList.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(", ", ""));
     }
 
     private void getReceiptFooter(StringBuilder receipt) {
@@ -48,6 +59,13 @@ public class Order {
         ifDiscountAmount(receipt);
     }
 
+    private void calculateTotalTaxAndAmount() {
+        for (Goods goods : goodsList) {
+            this.totalSalesTax += goods.getTotalAmount() * TAX;
+            this.totalAmount += goods.getTotalAmount() * (1 + TAX);
+        }
+    }
+
     private void ifDiscountAmount(StringBuilder receipt) {
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
             receipt.append("折扣:").append('\t').append(totalAmount * DISCOUNT).append('\n');
@@ -55,23 +73,5 @@ public class Order {
         } else {
             receipt.append("总价:").append('\t').append(totalAmount).append('\n');
         }
-    }
-
-    String printReceipt() {
-        StringBuilder receipt = new StringBuilder();
-
-        getReceiptHeader(receipt);
-
-        getReceiptContent(receipt);
-
-        getReceiptFooter(receipt);
-        return receipt.toString();
-    }
-
-    private void getReceiptContent(StringBuilder receipt) {
-        receipt.append(goodsList.toString()
-                .replace("[", "")
-                .replace("]", "")
-                .replace(", ", ""));
     }
 }
