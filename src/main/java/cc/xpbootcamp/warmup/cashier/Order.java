@@ -43,12 +43,12 @@ public class Order {
 
     private void calculateTotalTaxAndAmount() {
         for (LineItems lineItems : lineItemsList) {
-            this.totalSalesTax += lineItems.getTotalAmount() * TAX;
-            this.totalAmount += lineItems.getTotalAmount() * (1 + TAX);
+            totalSalesTax += lineItems.getTotalAmount() * TAX;
+            totalAmount += lineItems.getTotalAmount() * (1 + TAX);
         }
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
-            this.discount = this.totalAmount * DISCOUNT;
-            this.totalAmount *= 1 - DISCOUNT;
+            discount = totalAmount * DISCOUNT;
+            totalAmount *= 1 - DISCOUNT;
         }
     }
 }
