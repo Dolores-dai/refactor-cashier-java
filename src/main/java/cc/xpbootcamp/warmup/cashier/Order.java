@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Order {
-    private List<Goods> goodsList;
+    private List<LineItems> lineItemsList;
     private double totalSalesTax;
     private double totalAmount;
     private double discount;
@@ -14,14 +14,14 @@ public class Order {
     private final static double TAX = 0.10;
     private final static double DISCOUNT = 0.02;
 
-    public Order(List<Goods> goodsList, LocalDate localDate) {
-        this.goodsList = goodsList;
+    public Order(List<LineItems> lineItemsList, LocalDate localDate) {
+        this.lineItemsList = lineItemsList;
         this.localDate = Objects.isNull(localDate) ? LocalDate.now() : localDate;
         calculateTotalTaxAndAmount();
     }
 
-    public List<Goods> getGoodsList() {
-        return goodsList;
+    public List<LineItems> getGoodsList() {
+        return lineItemsList;
     }
 
     public double getTotalSalesTax() {
@@ -42,9 +42,9 @@ public class Order {
     }
 
     private void calculateTotalTaxAndAmount() {
-        for (Goods goods : goodsList) {
-            this.totalSalesTax += goods.getTotalAmount() * TAX;
-            this.totalAmount += goods.getTotalAmount() * (1 + TAX);
+        for (LineItems lineItems : lineItemsList) {
+            this.totalSalesTax += lineItems.getTotalAmount() * TAX;
+            this.totalAmount += lineItems.getTotalAmount() * (1 + TAX);
         }
         if (Objects.equals(localDate.getDayOfWeek(), DayOfWeek.WEDNESDAY)) {
             this.discount = this.totalAmount * DISCOUNT;

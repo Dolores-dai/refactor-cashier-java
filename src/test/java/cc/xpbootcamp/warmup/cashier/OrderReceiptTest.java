@@ -20,10 +20,10 @@ class OrderReceiptTest {
 
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
-        List<Goods> goods = new ArrayList<Goods>() {{
-            add(new Goods("milk", 10.0, 2));
-            add(new Goods("biscuits", 5.0, 5));
-            add(new Goods("chocolate", 20.0, 1));
+        List<LineItems> goods = new ArrayList<LineItems>() {{
+            add(new LineItems("milk", 10.0, 2));
+            add(new LineItems("biscuits", 5.0, 5));
+            add(new LineItems("chocolate", 20.0, 1));
         }};
         OrderReceipt receipt = new OrderReceipt(new Order(goods, date));
 
@@ -38,7 +38,7 @@ class OrderReceiptTest {
 
     @Test
     void shouldPrintSupermarketTitle() {
-        Order order = new Order(new ArrayList<Goods>(), date);
+        Order order = new Order(new ArrayList<LineItems>(), date);
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -48,7 +48,7 @@ class OrderReceiptTest {
 
     @Test
     void shouldPrintDateInfo() {
-        Order order = new Order(new ArrayList<Goods>(), date);
+        Order order = new Order(new ArrayList<LineItems>(), date);
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -59,10 +59,10 @@ class OrderReceiptTest {
     @Test
     void shouldPrintDiscountInfoWhenWed() {
         date = LocalDate.of(2020,2,19);
-        List<Goods> goods = new ArrayList<Goods>() {{
-            add(new Goods("milk", 10.0, 2));
-            add(new Goods("biscuits", 5.0, 5));
-            add(new Goods("chocolate", 20.0, 1));
+        List<LineItems> goods = new ArrayList<LineItems>() {{
+            add(new LineItems("milk", 10.0, 2));
+            add(new LineItems("biscuits", 5.0, 5));
+            add(new LineItems("chocolate", 20.0, 1));
         }};
         OrderReceipt receipt = new OrderReceipt(new Order(goods, date));
 
@@ -78,7 +78,7 @@ class OrderReceiptTest {
 
     @Test
     void shouldHandleNullDate() {
-        Order order = new Order(new ArrayList<Goods>(), null);
+        Order order = new Order(new ArrayList<LineItems>(), null);
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();

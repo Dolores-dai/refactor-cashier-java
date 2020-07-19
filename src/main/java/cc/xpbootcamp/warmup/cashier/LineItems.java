@@ -1,12 +1,12 @@
 package cc.xpbootcamp.warmup.cashier;
 
-public class Goods {
+public class LineItems {
     private String name;
     private double price;
     private int number;
     private double totalAmount;
 
-    public Goods(String name, Double price, Integer number) {
+    public LineItems(String name, Double price, Integer number) {
         super();
         this.name = name;
         this.price = price;
